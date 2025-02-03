@@ -1,0 +1,50 @@
+--Abaixo estara a lib
+
+local Lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/7yhx/kwargs_Ui_Library/main/source.lua"))()
+
+local UI = Lib:Create{
+   Theme = "Dark", -- or any other theme
+   Size = UDim2.new(0, 555, 0, 400) -- default
+}
+
+local Main = UI:Tab{
+   Name = "Inicio"
+}
+
+local Divider = Main:Divider{
+   Name = "Inicio shit"
+}
+
+local QuitDivider = Main:Divider{
+   Name = "Sair"
+}
+
+-- Script para imunidade e saúde ilimitada
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+-- Função para garantir imunidade aos poderes dos outros jogadores
+local function makeImmune()
+    for _, part in pairs(character:GetChildren()) do
+        if part:IsA("BasePart") then
+            part.Touched:Connect(function(hit)
+                if hit.Parent:IsA("Tool") or hit.Parent:IsA("Model") then
+                    hit.Parent:Destroy()
+                end
+            end)
+        end
+    end
+end
+
+-- Função para saúde ilimitada
+local function setUnlimitedHealth()
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.MaxHealth = math.huge
+        humanoid.Health = math.huge
+    end
+end
+
+-- Garantir imunidade e saúde ilimitada
+makeImmune()
+setUnlimitedHealth()
